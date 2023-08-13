@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:overlapping_panels_demo/blocs/campaign/campaign_bloc.dart';
 import 'package:overlapping_panels_demo/models/campaign.dart';
+import 'package:overlapping_panels_demo/utils/faker.dart';
 
 class AddCampaignScreen extends StatelessWidget {
   final Campaign? campaignBeforeEdit;
@@ -50,7 +51,9 @@ class AddCampaignScreen extends StatelessWidget {
                           id: controllerId.value.text,
                           title: controllerTitle.value.text,
                           description: controllerDescription.value.text,
-                          imageURL: controllerImage.value.text);
+                          imageURL: controllerImage.value.text == ''
+                              ? AppFaker().generatePlaceholderImage()
+                              : controllerImage.value.text);
                       print(isUpdated);
                       if (isUpdated) {
                         context
