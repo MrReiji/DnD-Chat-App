@@ -15,12 +15,22 @@ class HomeScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is CampaignInitial) {
             return Center(
-                child: Image.asset(
-              'assets\\Dnd_logo.png', // Adres URL obrazu
-              width: 200, // Opcjonalnie, ustaw szerokość obrazu
-              height: 200, // Opcjonalnie, ustaw wysokość obrazu
-              fit: BoxFit.cover, // Opcjonalnie, dopasowanie obrazu
-            ));
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets\\Dnd_logo.png', // Adres URL obrazu
+                    width: 200, // Opcjonalnie, ustaw szerokość obrazu
+                    height: 200, // Opcjonalnie, ustaw wysokość obrazu
+                    fit: BoxFit.cover, // Opcjonalnie, dopasowanie obrazu
+                  ),
+                  Text(
+                    "Empty list? Add your first campaign!",
+                    style: GoogleFonts.preahvihear(fontSize: 20),
+                  ),
+                ],
+              ),
+            );
           } else if (state is CampaignLoaded) {
             return ListView.builder(
                 itemCount: state.campaigns.length,
@@ -29,7 +39,13 @@ class HomeScreen extends StatelessWidget {
                     leading: SizedBox(
                         height: 100,
                         width: 100,
-                        child: Image.network(state.campaigns[index].imageURL)),
+                        child: Image.network(
+                          state.campaigns[index].imageURL,
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace? stackTrace) {
+                            return Text("Something wrong happened");
+                          },
+                        )),
                     title: Text(state.campaigns[index].title),
                     subtitle: Text(state.campaigns[index].description),
                     trailing: SizedBox(
