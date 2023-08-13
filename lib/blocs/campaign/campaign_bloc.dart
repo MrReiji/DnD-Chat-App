@@ -37,8 +37,11 @@ class CampaignBloc extends Bloc<CampaignEvent, CampaignState> {
         List<Campaign> campaigns = (state.campaigns.where((campaign) {
           return campaign.id != event.campaign.id;
         })).toList();
-
-        emit(CampaignLoaded(campaigns: campaigns));
+        if (campaigns.isEmpty) {
+          emit(CampaignInitial());
+        } else {
+          emit(CampaignLoaded(campaigns: campaigns));
+        }
       }
     });
   }
