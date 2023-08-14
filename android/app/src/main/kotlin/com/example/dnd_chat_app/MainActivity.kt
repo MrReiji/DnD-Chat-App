@@ -1,4 +1,4 @@
-package com.example.my_discord
+package com.example.dnd_chat_app
 
 import io.flutter.embedding.android.FlutterActivity
 

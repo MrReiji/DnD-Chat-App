@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "my_discord" "\0"
+            VALUE "FileDescription", "dnd_chat_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "my_discord" "\0"
+            VALUE "InternalName", "dnd_chat_app" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "my_discord.exe" "\0"
-            VALUE "ProductName", "my_discord" "\0"
+            VALUE "OriginalFilename", "dnd_chat_app.exe" "\0"
+            VALUE "ProductName", "dnd_chat_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
