@@ -26,7 +26,6 @@ class CampaignBloc extends Bloc<CampaignEvent, CampaignState> {
         List<Campaign> campaigns = (state.campaigns.map((campaign) {
           return campaign.id == event.campaign.id ? event.campaign : campaign;
         })).toList();
-
         emit(CampaignLoaded(campaigns: campaigns));
       }
     });

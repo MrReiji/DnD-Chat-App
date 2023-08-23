@@ -36,6 +36,7 @@ class HomeScreen extends StatelessWidget {
                 itemCount: state.campaigns.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
+                    onTap: () {},
                     leading: SizedBox(
                         height: 100,
                         width: 100,
@@ -96,18 +97,6 @@ class HomeScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 context.push(AppRouterPaths.add_campaign);
-
-                // context.read<CampaignBloc>().add(
-                //       AddCampaign(
-                //         campaign: Campaign(
-                //           id: 1,
-                //           title: "Tytul",
-                //           description: "Opis",
-                //           image: Image.network(
-                //               "https://w7.pngwing.com/pngs/172/385/png-transparent-d20-dice-game-nat20-dnd-d-d-critical-hit-crit-polyhedral-rpg.png"),
-                //         ),
-                //       ),
-                //     );
               },
               icon: Icon(Icons.add))
         ],
@@ -115,10 +104,10 @@ class HomeScreen extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.grey.shade600,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
         type: BottomNavigationBarType.fixed,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
             label: "Chats",

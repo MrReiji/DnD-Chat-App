@@ -3,26 +3,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:overlapping_panels_demo/blocs/campaign/campaign_bloc.dart';
+import 'package:overlapping_panels_demo/blocs/cubits/cubit/text_form_field_cubit.dart';
 import 'package:overlapping_panels_demo/models/campaign.dart';
 import 'package:overlapping_panels_demo/utils/faker.dart';
 
 class AddCampaignScreen extends StatelessWidget {
-  final Campaign? campaignBeforeEdit;
+  const AddCampaignScreen({this.campaignBeforeEdit, Key? key})
+      : super(key: key);
 
-  const AddCampaignScreen({this.campaignBeforeEdit, super.key});
+  final Campaign? campaignBeforeEdit;
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controllerId = TextEditingController();
-    TextEditingController controllerTitle = TextEditingController();
-    TextEditingController controllerDescription = TextEditingController();
-    TextEditingController controllerImage = TextEditingController();
-
-    controllerId.text = campaignBeforeEdit?.id ?? '';
-    controllerTitle.text = campaignBeforeEdit?.title ?? '';
-    controllerDescription.text = campaignBeforeEdit?.description ?? '';
-    controllerImage.text = campaignBeforeEdit?.imageURL ?? '';
-    bool isUpdated = campaignBeforeEdit != null;
+    TextEditingController controllerId =
+        TextEditingController(text: campaignBeforeEdit?.id ?? '');
+    TextEditingController controllerTitle =
+        TextEditingController(text: campaignBeforeEdit?.title ?? '');
+    TextEditingController controllerDescription =
+        TextEditingController(text: campaignBeforeEdit?.description ?? '');
+    TextEditingController controllerImage =
+        TextEditingController(text: campaignBeforeEdit?.imageURL ?? '');
 
     return Scaffold(
       appBar: AppBar(
@@ -33,55 +33,86 @@ class AddCampaignScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocBuilder<CampaignBloc, CampaignState>(
-        builder: (context, state) {
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  _inputField('ID', controllerId),
-                  _inputField('Title', controllerTitle),
-                  _inputField('Description', controllerDescription),
-                  _inputField('Image', controllerImage),
-                  ElevatedButton(
-                    onPressed: () {
-                      var campaign = Campaign(
-                          id: controllerId.value.text,
-                          title: controllerTitle.value.text,
-                          description: controllerDescription.value.text,
-                          imageURL: controllerImage.value.text == ''
-                              ? AppFaker().generatePlaceholderImage()
-                              : controllerImage.value.text);
-                      print(isUpdated);
-                      if (isUpdated) {
-                        context
-                            .read<CampaignBloc>()
-                            .add(UpdateCampaign(campaign: campaign));
-                      } else {
-                        context
-                            .read<CampaignBloc>()
-                            .add(AddCampaign(campaign: campaign));
-                      }
-                      context.pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
+      body: BlocProvider(
+        create: (context) => TextFormFieldCubit(),
+        child: BlocBuilder<TextFormFieldCubit, bool>(
+          builder: (ctx, isReadyToClick) {
+            return Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    _inputField('ID', controllerId, ctx, controllerId,
+                        controllerTitle, controllerDescription),
+                    _inputField('Title', controllerTitle, ctx, controllerId,
+                        controllerTitle, controllerDescription),
+                    _inputField('Description', controllerDescription, ctx,
+                        controllerId, controllerTitle, controllerDescription),
+                    _inputField('Image', controllerImage, ctx, controllerId,
+                        controllerTitle, controllerDescription),
+                    ElevatedButton(
+                      onPressed: isReadyToClick
+                          ? () => _onButtonPressed(
+                                context,
+                                controllerId,
+                                controllerTitle,
+                                controllerDescription,
+                                controllerImage,
+                              )
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                      ),
+                      child: Text(campaignBeforeEdit == null
+                          ? 'Add new campaign'
+                          : 'Update campaign'),
                     ),
-                    child: const Text('Add new campaign'),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
+  }
+
+  void _onButtonPressed(
+    BuildContext context,
+    TextEditingController controllerId,
+    TextEditingController controllerTitle,
+    TextEditingController controllerDescription,
+    TextEditingController controllerImage,
+  ) {
+    // Create a new Campaign instance
+    var campaign = Campaign(
+      id: controllerId.text,
+      title: controllerTitle.text,
+      description: controllerDescription.text,
+      imageURL: controllerImage.text.isEmpty
+          ? AppFaker().generatePlaceholderImage()
+          : controllerImage.text,
+    );
+
+    if (campaignBeforeEdit != null) {
+      // Update the campaign
+      context.read<CampaignBloc>().add(UpdateCampaign(campaign: campaign));
+    } else {
+      // Add a new campaign
+      context.read<CampaignBloc>().add(AddCampaign(campaign: campaign));
+    }
+
+    // Close the screen
+    context.pop();
   }
 
   Column _inputField(
     String field,
     TextEditingController controller,
+    BuildContext ctx,
+    TextEditingController controllerId,
+    TextEditingController controllerTitle,
+    TextEditingController controllerDescription,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,6 +130,13 @@ class AddCampaignScreen extends StatelessWidget {
           width: double.infinity,
           child: TextFormField(
             controller: controller,
+            onChanged: (_) {
+              ctx.read<TextFormFieldCubit>().checkIfReady(
+                    controllerId,
+                    controllerTitle,
+                    controllerDescription,
+                  );
+            },
           ),
         ),
       ],

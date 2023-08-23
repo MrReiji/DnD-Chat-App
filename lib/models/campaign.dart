@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class Campaign extends Equatable {
   final String id;
@@ -7,7 +6,7 @@ class Campaign extends Equatable {
   final String description;
   final String imageURL;
 
-  Campaign(
+  const Campaign(
       {required this.id,
       required this.title,
       required this.description,
