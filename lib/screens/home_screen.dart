@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets\\Dnd_logo.png', // Adres URL obrazu
+                    'assets/images/Dnd_logo_dice.png', // Adres URL obrazu
                     width: 200, // Opcjonalnie, ustaw szerokość obrazu
                     height: 200, // Opcjonalnie, ustaw wysokość obrazu
                     fit: BoxFit.cover, // Opcjonalnie, dopasowanie obrazu

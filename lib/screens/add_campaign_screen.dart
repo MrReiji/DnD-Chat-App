@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:overlapping_panels_demo/blocs/campaign/campaign_bloc.dart';
-import 'package:overlapping_panels_demo/blocs/cubits/cubit/text_form_field_cubit.dart';
-import 'package:overlapping_panels_demo/models/campaign.dart';
-import 'package:overlapping_panels_demo/utils/faker.dart';
+import 'package:dnd_chat_app/blocs/campaign/campaign_bloc.dart';
+import 'package:dnd_chat_app/blocs/cubits/cubit/text_form_field_cubit.dart';
+import 'package:dnd_chat_app/models/campaign.dart';
+import 'package:dnd_chat_app/utils/faker.dart';
 
 class AddCampaignScreen extends StatelessWidget {
   const AddCampaignScreen({this.campaignBeforeEdit, Key? key})

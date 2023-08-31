@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overlapping_panels_demo/blocs/campaign/campaign_bloc.dart';
-import 'package:overlapping_panels_demo/models/campaign.dart';
-import 'package:overlapping_panels_demo/screens/home_screen.dart';
-import 'package:overlapping_panels_demo/utils/router.dart';
+import 'package:dnd_chat_app/blocs/campaign/campaign_bloc.dart';
+import 'package:dnd_chat_app/utils/router.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
