@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +12,28 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            "DnD Chat App",
+            style: GoogleFonts.outfit(fontSize: 30),
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+            icon: const Icon(Icons.exit_to_app),
+          ),
+          IconButton(
+            onPressed: () {
+              context.push(AppRouterPaths.add_campaign);
+            },
+            icon: Icon(Icons.add),
+          ),
+        ],
+      ),
       body: BlocBuilder<CampaignBloc, CampaignState>(
         builder: (context, state) {
           if (state is CampaignInitial) {
@@ -19,10 +42,10 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/Dnd_logo_dice.png', // Adres URL obrazu
-                    width: 200, // Opcjonalnie, ustaw szerokość obrazu
-                    height: 200, // Opcjonalnie, ustaw wysokość obrazu
-                    fit: BoxFit.cover, // Opcjonalnie, dopasowanie obrazu
+                    'assets/images/Dnd_logo_dice.png',
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
                   ),
                   Text(
                     "Empty list? Add your first campaign!",
@@ -60,8 +83,6 @@ class HomeScreen extends StatelessWidget {
                               onPressed: () {
                                 context.push(AppRouterPaths.add_campaign,
                                     extra: state.campaigns[index]);
-                                // context.read<CampaignBloc>().add(UpdateCampaign(
-                                //     campaign: state.campaigns[index]));
                               },
                             ),
                           ),
@@ -82,24 +103,9 @@ class HomeScreen extends StatelessWidget {
                   );
                 });
           } else {
-            return Text("Nie dziala");
+            return Text("Doesn't work");
           }
         },
-      ),
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            "DnD Chat App",
-            style: GoogleFonts.outfit(fontSize: 30),
-          ),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                context.push(AppRouterPaths.add_campaign);
-              },
-              icon: Icon(Icons.add))
-        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.red,
