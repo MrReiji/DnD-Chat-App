@@ -33,29 +33,17 @@ class LoginFormBloc extends FormBloc<String, String> {
     debugPrint(password.value);
 
     try {
-      final userCredentials = await _firebase.createUserWithEmailAndPassword(
+      final userCredentials = await _firebase.signInWithEmailAndPassword(
           email: email.value, password: password.value);
       print(userCredentials);
       await Future<void>.delayed(const Duration(seconds: 1));
       emitSuccess();
     } on FirebaseAuthException catch (error) {
-      if (error.code == 'email-already-in-use') {
-        emitFailure(failureResponse: "Email already in use");
+      if (error.code == 'user-not-found') {
+        emitFailure(failureResponse: "User not found. Create an account!");
       } else {
         emitFailure(failureResponse: "Authentication failed");
       }
-      // ScaffoldMessenger.of(context).clearSnackBars();
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //     content: Text(error.message ?? 'Authentication failed.'),
-      //   ),
-      // );
     }
-
-    // if (showSuccessResponse.value) {
-    //   emitSuccess();
-    // } else {
-    //   emitFailure(failureResponse: 'This is an awesome error!');
-    // }
   }
 }

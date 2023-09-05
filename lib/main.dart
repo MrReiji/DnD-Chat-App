@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dnd_chat_app/blocs/campaign/campaign_bloc.dart';
@@ -10,26 +11,24 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => CampaignBloc(),
-        child: MaterialApp.router(
-          routerDelegate: AppRouter.router.routerDelegate,
-          routeInformationParser: AppRouter.router.routeInformationParser,
-          routeInformationProvider: AppRouter.router.routeInformationProvider,
-          title: 'DnD Chat App',
-          theme: ThemeData.dark(),
-          debugShowCheckedModeBanner: false,
-          // child: MaterialApp(
-          //     title: 'DnD Chat App',
-          //     theme: ThemeData.dark(),
-          //     debugShowCheckedModeBanner: false,
-          //     home: HomeScreen()),
-        ));
+      create: (context) => CampaignBloc(),
+      child: MaterialApp.router(
+        routerDelegate: AppRouter.router.routerDelegate,
+        routeInformationParser: AppRouter.router.routeInformationParser,
+        routeInformationProvider: AppRouter.router.routeInformationProvider,
+        title: 'DnD Chat App',
+        theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+      ),
+    );
   }
 }
