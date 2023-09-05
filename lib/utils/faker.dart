@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
 
 class AppFaker {
