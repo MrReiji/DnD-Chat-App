@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:dnd_chat_app/blocs/campaign/campaign_bloc.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 import '../../../models/campaign.dart';
+import '../../cubits/image_picker/image_picker_cubit.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 //final _firebase = FirebaseAuth.instance;
@@ -10,6 +14,7 @@ import '../../../models/campaign.dart';
 class AddCampaignFormBloc extends FormBloc<String, String> {
   late final CampaignBloc campaignBloc;
   bool needToUpdate = false;
+  File? selectedImage;
 
   final title = TextFieldBloc(
     validators: [
@@ -34,34 +39,40 @@ class AddCampaignFormBloc extends FormBloc<String, String> {
 
   @override
   void onSubmitting() async {
-    debugPrint(title.value);
-    debugPrint(description.value);
-
     try {
+      final id = DateTime.now().microsecondsSinceEpoch;
+
+      debugPrint(title.value);
+      debugPrint(description.value);
+      debugPrint('$id');
+
+      selectedImage ?? emitFailure(failureResponse: 'Add image!');
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('campaign_images')
+          .child('$id.jpg');
       if (needToUpdate) {
-        print("Update");
         campaignBloc.add(UpdateCampaign(
             campaign: Campaign(
-                id: '8',
+                id: '$id',
                 title: title.value,
                 description: description.value,
-                imageURL:
-                    'https://www.shutterstock.com/shutterstock/photos/2208372513/display_1500/stock-vector-dice-for-playing-dnd-tabletop-role-playing-game-dungeon-and-dragons-with-d-magical-role-of-2208372513.jpg')));
+                image: selectedImage!)));
       } else {
-        print("AddedNew");
         campaignBloc.add(AddCampaign(
             campaign: Campaign(
-                id: '8',
+                id: '$id',
                 title: title.value,
                 description: description.value,
-                imageURL:
-                    'https://www.shutterstock.com/shutterstock/photos/2208372513/display_1500/stock-vector-dice-for-playing-dnd-tabletop-role-playing-game-dungeon-and-dragons-with-d-magical-role-of-2208372513.jpg')));
+                image: selectedImage!)));
+        await storageRef.putFile(selectedImage!);
+        final imageUrl = await storageRef.getDownloadURL();
+        debugPrint(imageUrl);
       }
 
       emitSuccess(successResponse: 'Added with succes');
-      print("After this");
     } catch (error) {
-      print(error);
+      debugPrint(error.toString());
       emitFailure(failureResponse: 'Something\'s wrong');
     }
   }

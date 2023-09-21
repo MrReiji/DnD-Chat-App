@@ -1,4 +1,6 @@
-import 'package:dnd_chat_app/blocs/form_bloc/add_campaign_form_bloc/add_campaign_form_bloc_bloc.dart';
+import 'dart:io';
+
+import 'package:dnd_chat_app/blocs/form_bloc/add_campaign_form/add_campaign_form_bloc_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,7 +8,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:dnd_chat_app/blocs/campaign/campaign_bloc.dart';
 import 'package:dnd_chat_app/models/campaign.dart';
 import 'package:dnd_chat_app/utils/faker.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../blocs/cubits/image_picker/image_picker_cubit.dart';
+import '../models/image_picker.dart';
 import '../utils/approuter_paths.dart';
 import '../widgets/loading_dialog.dart';
 
@@ -26,15 +31,11 @@ class AddCampaignScreen extends StatelessWidget {
           addCampaignFormBloc.title.updateValue(campaignBeforeEdit!.title);
           addCampaignFormBloc.description
               .updateValue(campaignBeforeEdit!.description);
+          context.read<ImagePickerCubit>().setImage(campaignBeforeEdit!.image);
           addCampaignFormBloc.needToUpdate = true;
+        } else {
+          context.read<ImagePickerCubit>().clearImage();
         }
-
-        // addCampaignFormBloc.campaign = Campaign(
-        //     id: '8',
-        //     title: addCampaignFormBloc.title.value,
-        //     description: addCampaignFormBloc.description.value,
-        //     imageURL:
-        //         '');
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -74,6 +75,11 @@ class AddCampaignScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
+                        ImagePickerWidget(
+                          onPickImage: (pickedImage) {
+                            addCampaignFormBloc.selectedImage = pickedImage;
+                          },
+                        ),
                         TextFieldBlocBuilder(
                           textFieldBloc: addCampaignFormBloc.title,
                           keyboardType: TextInputType.text,

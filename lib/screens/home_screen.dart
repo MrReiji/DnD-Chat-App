@@ -61,15 +61,10 @@ class HomeScreen extends StatelessWidget {
                   return ListTile(
                     onTap: () {},
                     leading: SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Image.network(
-                          state.campaigns[index].imageURL,
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace? stackTrace) {
-                            return Text("Something wrong happened");
-                          },
-                        )),
+                      height: 100,
+                      width: 100,
+                      child: Image.file(state.campaigns[index].image),
+                    ),
                     title: Text(state.campaigns[index].title),
                     subtitle: Text(state.campaigns[index].description),
                     trailing: SizedBox(
