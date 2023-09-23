@@ -4,23 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../blocs/form_bloc/signUp_form_bloc/signUp_form_bloc.dart';
+import '../models/image_picker.dart';
 import '../widgets/loading_dialog.dart';
 
-class AuthScreen extends StatelessWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginFormBloc(),
+      create: (context) => SignUpFormBloc(),
       child: Builder(
         builder: (context) {
-          final loginFormBloc = context.read<LoginFormBloc>();
+          final signUpFormBloc = context.read<SignUpFormBloc>();
 
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: Center(
-              child: FormBlocListener<LoginFormBloc, String, String>(
+              child: FormBlocListener<SignUpFormBloc, String, String>(
                 onSubmitting: (context, state) {
                   LoadingDialog.show(context);
                 },
@@ -42,18 +44,24 @@ class AuthScreen extends StatelessWidget {
                   physics: const ClampingScrollPhysics(),
                   child: AutofillGroup(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.only(
-                            top: 30,
-                            bottom: 20,
-                            left: 20,
-                            right: 20,
-                          ),
-                          child: Image.asset('assets/images/Dnd_logo.png'),
+                        ImagePickerWidget(
+                          onPickImage: (pickedImage) {},
                         ),
                         TextFieldBlocBuilder(
-                          textFieldBloc: loginFormBloc.email,
+                          textFieldBloc: signUpFormBloc.username,
+                          keyboardType: TextInputType.name,
+                          autofillHints: const [
+                            AutofillHints.username,
+                          ],
+                          decoration: const InputDecoration(
+                            labelText: 'Username',
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                        ),
+                        TextFieldBlocBuilder(
+                          textFieldBloc: signUpFormBloc.email,
                           keyboardType: TextInputType.emailAddress,
                           autofillHints: const [
                             AutofillHints.email,
@@ -64,7 +72,7 @@ class AuthScreen extends StatelessWidget {
                           ),
                         ),
                         TextFieldBlocBuilder(
-                          textFieldBloc: loginFormBloc.password,
+                          textFieldBloc: signUpFormBloc.password,
                           suffixButton: SuffixButton.obscureText,
                           autofillHints: const [
                             AutofillHints.password,
@@ -75,28 +83,9 @@ class AuthScreen extends StatelessWidget {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: loginFormBloc.submit,
-                          child: const Text('Sign in/ Sign up'),
+                          onPressed: signUpFormBloc.submit,
+                          child: const Text('Sign up'),
                         ),
-                        InkResponse(
-                            onTap: () {
-                              context.push(AppRouterPaths.sign_up);
-                            },
-                            child: Container(
-                              width: 60,
-                              padding: const EdgeInsets.only(top: 2),
-                              child: const Center(
-                                child: Text(
-                                  'Sign up',
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            highlightShape: BoxShape.rectangle,
-                            splashFactory: NoSplash.splashFactory),
                       ],
                     ),
                   ),

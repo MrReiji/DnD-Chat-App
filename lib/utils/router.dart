@@ -1,3 +1,4 @@
+import 'package:dnd_chat_app/screens/sign_up_screen.dart';
 import 'package:dnd_chat_app/utils/router_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -35,6 +36,12 @@ class AppRouter {
             return AddCampaignScreen(
               campaignBeforeEdit: campaignBeforeEdit,
             );
+          }),
+      GoRoute(
+          name: 'sign_up',
+          path: AppRouterPaths.sign_up,
+          builder: (BuildContext context, GoRouterState state) {
+            return const SignUpScreen();
           }),
     ],
   );

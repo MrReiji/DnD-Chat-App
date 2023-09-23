@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 final _firebase = FirebaseAuth.instance;
 
-class LoginFormBloc extends FormBloc<String, String> {
+class SignUpFormBloc extends FormBloc<String, String> {
   final email = TextFieldBloc(
     validators: [
       FieldBlocValidators.required,
@@ -19,11 +19,18 @@ class LoginFormBloc extends FormBloc<String, String> {
     ],
   );
 
-  LoginFormBloc() {
+  final username = TextFieldBloc(
+    validators: [
+      FieldBlocValidators.required,
+    ],
+  );
+
+  SignUpFormBloc() {
     addFieldBlocs(
       fieldBlocs: [
         email,
         password,
+        username,
       ],
     );
   }
@@ -32,16 +39,17 @@ class LoginFormBloc extends FormBloc<String, String> {
   void onSubmitting() async {
     debugPrint(email.value);
     debugPrint(password.value);
+    debugPrint(username.value);
 
     try {
-      final userCredentials = await _firebase.signInWithEmailAndPassword(
+      final userCredentials = await _firebase.createUserWithEmailAndPassword(
           email: email.value, password: password.value);
       print(userCredentials);
       await Future<void>.delayed(const Duration(seconds: 1));
       emitSuccess();
     } on FirebaseAuthException catch (error) {
-      if (error.code == 'user-not-found') {
-        emitFailure(failureResponse: "User not found. Create an account!");
+      if (error.code == 'email-already-in-use') {
+        emitFailure(failureResponse: "Email already in use. Sign in!");
       } else {
         emitFailure(failureResponse: "Authentication failed");
       }

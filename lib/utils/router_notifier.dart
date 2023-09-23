@@ -13,8 +13,9 @@ class RouterNotifier extends ChangeNotifier {
 
   String? redirect(BuildContext context, GoRouterState state) {
     final onLoginPage = state.fullPath == '/auth';
+    final tryToSignUp = state.fullPath == '/sign_up';
 
-    if (_firebase.currentUser == null) {
+    if (_firebase.currentUser == null && !tryToSignUp) {
       return AppRouterPaths.auth;
     }
 
