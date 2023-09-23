@@ -4,6 +4,7 @@ import 'package:dnd_chat_app/blocs/campaign/campaign_bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../models/campaign.dart';
 import '../../cubits/image_picker/image_picker_cubit.dart';
@@ -68,6 +69,15 @@ class AddCampaignFormBloc extends FormBloc<String, String> {
         await storageRef.putFile(selectedImage!);
         final imageUrl = await storageRef.getDownloadURL();
         debugPrint(imageUrl);
+
+        await FirebaseFirestore.instance
+            .collection('campaigns')
+            .doc('$id')
+            .set({
+          'title': title.value,
+          'description': description.value,
+          'image_url': imageUrl,
+        });
       }
 
       emitSuccess(successResponse: 'Added with succes');
