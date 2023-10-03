@@ -36,8 +36,7 @@ class LoginFormBloc extends FormBloc<String, String> {
     try {
       final userCredentials = await _firebase.signInWithEmailAndPassword(
           email: email.value, password: password.value);
-      print(userCredentials);
-      await Future<void>.delayed(const Duration(seconds: 1));
+      debugPrint(userCredentials.toString());
       emitSuccess();
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
