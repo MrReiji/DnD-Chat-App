@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../blocs/cubits/image_picker/image_picker_cubit.dart';
 import '../blocs/form_bloc/signUp_form_bloc/signUp_form_bloc.dart';
 import '../models/image_picker.dart';
 import '../widgets/loading_dialog.dart';
@@ -18,8 +19,10 @@ class SignUpScreen extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final signUpFormBloc = context.read<SignUpFormBloc>();
+          context.read<ImagePickerCubit>().clearImage();
 
           return Scaffold(
+            appBar: AppBar(),
             resizeToAvoidBottomInset: false,
             body: Center(
               child: FormBlocListener<SignUpFormBloc, String, String>(
@@ -32,7 +35,7 @@ class SignUpScreen extends StatelessWidget {
                 onSuccess: (context, state) {
                   LoadingDialog.hide(context);
 
-                  context.push(AppRouterPaths.home);
+                  context.go(AppRouterPaths.home);
                 },
                 onFailure: (context, state) {
                   LoadingDialog.hide(context);
@@ -47,7 +50,9 @@ class SignUpScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         ImagePickerWidget(
-                          onPickImage: (pickedImage) {},
+                          onPickImage: (pickedImage) {
+                            signUpFormBloc.selectedImage = pickedImage;
+                          },
                         ),
                         TextFieldBlocBuilder(
                           textFieldBloc: signUpFormBloc.username,
