@@ -76,7 +76,7 @@ class AuthScreen extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: loginFormBloc.submit,
-                          child: const Text('Sign in/ Sign up'),
+                          child: const Text('Sign in'),
                         ),
                         InkResponse(
                             onTap: () {

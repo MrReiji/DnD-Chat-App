@@ -20,6 +20,8 @@ class RouterNotifier extends ChangeNotifier {
     }
 
     if (_firebase.currentUser != null && onLoginPage) {
+      debugPrint(state.fullPath);
+
       return AppRouterPaths.home;
     }
     return null;
