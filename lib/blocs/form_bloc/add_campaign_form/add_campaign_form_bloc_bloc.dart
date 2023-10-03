@@ -16,6 +16,7 @@ class AddCampaignFormBloc extends FormBloc<String, String> {
   late final CampaignBloc campaignBloc;
   bool needToUpdate = false;
   File? selectedImage;
+  String? id;
 
   final title = TextFieldBloc(
     validators: [
@@ -41,7 +42,7 @@ class AddCampaignFormBloc extends FormBloc<String, String> {
   @override
   void onSubmitting() async {
     try {
-      final id = DateTime.now().microsecondsSinceEpoch;
+      id ??= DateTime.now().microsecondsSinceEpoch.toString();
 
       debugPrint(title.value);
       debugPrint(description.value);

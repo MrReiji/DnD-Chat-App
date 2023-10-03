@@ -31,6 +31,8 @@ class AddCampaignScreen extends StatelessWidget {
           addCampaignFormBloc.title.updateValue(campaignBeforeEdit!.title);
           addCampaignFormBloc.description
               .updateValue(campaignBeforeEdit!.description);
+          addCampaignFormBloc.selectedImage = campaignBeforeEdit!.image;
+          addCampaignFormBloc.id = campaignBeforeEdit!.id;
           context.read<ImagePickerCubit>().setImage(campaignBeforeEdit!.image);
           addCampaignFormBloc.needToUpdate = true;
         } else {
