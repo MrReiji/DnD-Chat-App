@@ -59,7 +59,9 @@ class HomeScreen extends StatelessWidget {
                 itemCount: state.campaigns.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      context.push(AppRouterPaths.chat);
+                    },
                     leading: SizedBox(
                       height: 100,
                       width: 100,

@@ -1,3 +1,4 @@
+import 'package:dnd_chat_app/screens/chat_screen.dart';
 import 'package:dnd_chat_app/screens/sign_up_screen.dart';
 import 'package:dnd_chat_app/utils/router_notifier.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,12 @@ class AppRouter {
           path: AppRouterPaths.sign_up,
           builder: (BuildContext context, GoRouterState state) {
             return const SignUpScreen();
+          }),
+      GoRoute(
+          name: 'chat',
+          path: AppRouterPaths.chat,
+          builder: (BuildContext context, GoRouterState state) {
+            return const ChatScreen();
           }),
     ],
   );
