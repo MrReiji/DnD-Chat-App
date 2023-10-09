@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../models/campaign.dart';
-import '../../cubits/image_picker/image_picker_cubit.dart';
+import '../../models/campaign.dart';
+import '../cubits/image_picker/image_picker_cubit.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 //final _firebase = FirebaseAuth.instance;
@@ -53,6 +53,10 @@ class AddCampaignFormBloc extends FormBloc<String, String> {
           .ref()
           .child('campaign_images')
           .child('$id.jpg');
+
+      await storageRef.putFile(selectedImage!);
+      final imageUrl = await storageRef.getDownloadURL();
+
       if (needToUpdate) {
         campaignBloc.add(UpdateCampaign(
             campaign: Campaign(
@@ -60,6 +64,15 @@ class AddCampaignFormBloc extends FormBloc<String, String> {
                 title: title.value,
                 description: description.value,
                 image: selectedImage!)));
+
+        await FirebaseFirestore.instance
+            .collection('campaigns')
+            .doc('$id')
+            .update({
+          'title': title.value,
+          'description': description.value,
+          'image_url': await storageRef.getDownloadURL(),
+        });
       } else {
         campaignBloc.add(AddCampaign(
             campaign: Campaign(
@@ -67,8 +80,7 @@ class AddCampaignFormBloc extends FormBloc<String, String> {
                 title: title.value,
                 description: description.value,
                 image: selectedImage!)));
-        await storageRef.putFile(selectedImage!);
-        final imageUrl = await storageRef.getDownloadURL();
+
         debugPrint(imageUrl);
 
         await FirebaseFirestore.instance
