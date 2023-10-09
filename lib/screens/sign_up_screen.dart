@@ -1,11 +1,11 @@
-import 'package:dnd_chat_app/blocs/form_bloc/login_form/login_form_bloc.dart';
+import 'package:dnd_chat_app/blocs/form_bloc/login_form_bloc.dart';
 import 'package:dnd_chat_app/utils/approuter_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../blocs/cubits/image_picker/image_picker_cubit.dart';
-import '../blocs/form_bloc/signUp_form_bloc/signUp_form_bloc.dart';
+import '../blocs/form_bloc/signUp_form_bloc.dart';
 import '../models/image_picker.dart';
 import '../widgets/loading_dialog.dart';
 
@@ -23,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(),
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             body: Center(
               child: FormBlocListener<SignUpFormBloc, String, String>(
                 onSubmitting: (context, state) {
