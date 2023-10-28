@@ -20,4 +20,8 @@ class CampaignLoaded extends CampaignState {
   List<Object> get props => [campaigns];
 }
 
-class CampaignError extends CampaignState {}
+class CampaignError extends CampaignState {
+  final String errorMessage;
+
+  const CampaignError(this.errorMessage);
+}
