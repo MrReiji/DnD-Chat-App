@@ -18,7 +18,7 @@ class AuthScreen extends StatelessWidget {
           final loginFormBloc = context.read<LoginFormBloc>();
 
           return Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             body: Center(
               child: FormBlocListener<LoginFormBloc, String, String>(
                 onSubmitting: (context, state) {
