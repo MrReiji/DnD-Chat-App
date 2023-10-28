@@ -1,4 +1,3 @@
-import 'package:dnd_chat_app/screens/chat_screen.dart';
 import 'package:dnd_chat_app/screens/sign_up_screen.dart';
 import 'package:dnd_chat_app/utils/router_notifier.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:dnd_chat_app/screens/add_campaign_screen.dart';
 
 import '../models/campaign.dart';
 import '../screens/auth_screen.dart';
+import '../screens/chat_screen.dart';
 import '../screens/home_screen.dart';
 import 'approuter_paths.dart';
 

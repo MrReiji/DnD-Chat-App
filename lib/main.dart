@@ -34,7 +34,11 @@ class MyApp extends StatelessWidget {
         routeInformationParser: AppRouter.router.routeInformationParser,
         routeInformationProvider: AppRouter.router.routeInformationProvider,
         title: 'DnD Chat App',
-        theme: ThemeData.dark(),
+        theme: ThemeData.dark().copyWith(
+          colorScheme: ThemeData.dark().colorScheme.copyWith(
+                secondary: Colors.lightBlueAccent,
+              ),
+        ),
         debugShowCheckedModeBanner: false,
       ),
     );
