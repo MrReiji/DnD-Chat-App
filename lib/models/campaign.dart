@@ -7,24 +7,29 @@ class Campaign extends Equatable {
   final String title;
   final String description;
   final File image;
+  final String creatorID;
 
-  const Campaign(
-      {required this.id,
-      required this.title,
-      required this.description,
-      required this.image});
+  const Campaign({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.image,
+    required this.creatorID,
+  });
 
   Campaign copyWith({
     String? id,
     String? title,
     String? description,
     File? image,
+    String? creatorID,
   }) {
     return Campaign(
         id: id ?? this.id,
         title: title ?? this.title,
         description: description ?? this.description,
-        image: image ?? this.image);
+        image: image ?? this.image,
+        creatorID: creatorID ?? this.creatorID);
   }
 
   @override
@@ -33,5 +38,6 @@ class Campaign extends Equatable {
         title,
         description,
         image,
+        creatorID,
       ];
 }
