@@ -14,7 +14,7 @@ import '../cubits/image_picker/image_picker_cubit.dart';
 //final _firebase = FirebaseAuth.instance;
 
 class AddCampaignFormBloc extends FormBloc<String, String> {
-  late final CampaignBloc campaignBloc;
+  //late final CampaignBloc campaignBloc;
   bool needToUpdate = false;
   File? selectedImage;
   String? id;
@@ -32,7 +32,7 @@ class AddCampaignFormBloc extends FormBloc<String, String> {
     ],
   );
 
-  AddCampaignFormBloc(this.campaignBloc) {
+  AddCampaignFormBloc(/*this.campaignBloc*/) {
     addFieldBlocs(
       fieldBlocs: [
         title,
@@ -94,7 +94,8 @@ class AddCampaignFormBloc extends FormBloc<String, String> {
           'title': title.value,
           'description': description.value,
           'image_url': imageUrl,
-          'creatorID': creatorID
+          'creatorID': creatorID,
+          'participants': [creatorID]
         });
       }
 
