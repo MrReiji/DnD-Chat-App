@@ -12,8 +12,9 @@ class ChatFormBloc extends FormBloc<String, String> {
     ],
   );
   final user = FirebaseAuth.instance.currentUser!;
+  final String id;
 
-  ChatFormBloc() {
+  ChatFormBloc(this.id) {
     addFieldBlocs(
       fieldBlocs: [
         text,
@@ -29,7 +30,11 @@ class ChatFormBloc extends FormBloc<String, String> {
           .collection('users')
           .doc(user.uid)
           .get();
-      FirebaseFirestore.instance.collection('chat').add({
+      FirebaseFirestore.instance
+          .collection('campaigns')
+          .doc(id)
+          .collection('chat')
+          .add({
         'text': text.value,
         'createdAt': Timestamp.now(),
         'userId': user.uid,

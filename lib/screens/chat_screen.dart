@@ -6,18 +6,20 @@ import '../widgets/chat/chat_messages.dart';
 import '../widgets/chat/new_messages.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({required this.id, super.key});
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: App_AppBar(),
       body: Column(
-        children: const [
+        children: [
           Expanded(
-            child: ChatMessages(),
+            child: ChatMessages(id: id),
           ),
-          NewMessage(),
+          NewMessage(id: id),
         ],
       ),
     );

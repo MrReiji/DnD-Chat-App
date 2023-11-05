@@ -5,12 +5,14 @@ import '../../blocs/form_bloc/chat_form_bloc.dart';
 import '../loading_dialog.dart';
 
 class NewMessage extends StatelessWidget {
-  const NewMessage({Key? key}) : super(key: key);
+  const NewMessage({required this.id, Key? key}) : super(key: key);
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChatFormBloc(),
+      create: (context) => ChatFormBloc(id),
       child: Builder(
         builder: (context) {
           final chatFormBloc = context.read<ChatFormBloc>();
