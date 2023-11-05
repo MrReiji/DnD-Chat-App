@@ -8,6 +8,7 @@ class Campaign extends Equatable {
   final String description;
   final File image;
   final String creatorID;
+  final List<String> participants;
 
   const Campaign({
     required this.id,
@@ -15,21 +16,24 @@ class Campaign extends Equatable {
     required this.description,
     required this.image,
     required this.creatorID,
+    required this.participants,
   });
 
-  Campaign copyWith({
-    String? id,
-    String? title,
-    String? description,
-    File? image,
-    String? creatorID,
-  }) {
+  Campaign copyWith(
+      {String? id,
+      String? title,
+      String? description,
+      File? image,
+      String? creatorID,
+      List<String>? participants}) {
     return Campaign(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        description: description ?? this.description,
-        image: image ?? this.image,
-        creatorID: creatorID ?? this.creatorID);
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      image: image ?? this.image,
+      creatorID: creatorID ?? this.creatorID,
+      participants: participants ?? this.participants,
+    );
   }
 
   @override
@@ -39,5 +43,6 @@ class Campaign extends Equatable {
         description,
         image,
         creatorID,
+        participants,
       ];
 }
