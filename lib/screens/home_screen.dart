@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dnd_chat_app/blocs/form_bloc/add_campaign_form_bloc_bloc.dart';
 import 'package:dnd_chat_app/models/campaign.dart';
 import 'package:dnd_chat_app/utils/download_image_from_URL.dart';
+import 'package:dnd_chat_app/widgets/app_AppBar.dart';
 import 'package:dnd_chat_app/widgets/loading_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            "DnD Chat App",
-            style: GoogleFonts.outfit(fontSize: 30),
-          ),
-        ),
+      appBar: App_AppBar(
         actions: [
           IconButton(
             onPressed: () {
@@ -46,8 +41,8 @@ class HomeScreen extends StatelessWidget {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('campaigns')
-            .where('creatorID',
-                isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+            .where('participants',
+                arrayContains: FirebaseAuth.instance.currentUser!.uid)
             .snapshots(),
         builder: (ctx, chatSnapshots) {
           if (chatSnapshots.connectionState == ConnectionState.waiting) {
@@ -96,9 +91,14 @@ class HomeScreen extends StatelessWidget {
               final String description = campaign['description'];
               final String image_url = campaign['image_url'];
               final String creatorID = campaign['creatorID'];
+              final List<String> participants =
+                  (campaign['participants'] as List<dynamic>)
+                      .map((participant) => participant.toString())
+                      .toList();
+
               return ListTile(
                 onTap: () {
-                  context.push(AppRouterPaths.chat);
+                  context.push(AppRouterPaths.chat, extra: id);
                 },
                 leading: SizedBox(
                   height: 100,
@@ -113,6 +113,18 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: IconButton(
+                          icon: Icon(Icons.group_add_rounded),
+                          iconSize: 25,
+                          onPressed: () {
+                            context.push(
+                              AppRouterPaths.add_participants,
+                              extra: [id, participants],
+                            );
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: IconButton(
                           icon: Icon(Icons.edit),
                           iconSize: 25,
                           onPressed: () async {
@@ -121,11 +133,13 @@ class HomeScreen extends StatelessWidget {
                                 await downloadImage(Uri.parse(image_url), id);
                             context.push(AppRouterPaths.add_campaign,
                                 extra: Campaign(
-                                    id: id,
-                                    title: title,
-                                    description: description,
-                                    image: imageFile,
-                                    creatorID: creatorID));
+                                  id: id,
+                                  title: title,
+                                  description: description,
+                                  image: imageFile,
+                                  creatorID: creatorID,
+                                  participants: participants,
+                                ));
                           },
                         ),
                       ),

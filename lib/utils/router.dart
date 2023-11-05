@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dnd_chat_app/screens/add_participants_screen.dart';
 import 'package:dnd_chat_app/screens/sign_up_screen.dart';
 import 'package:dnd_chat_app/utils/router_notifier.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +41,18 @@ class AppRouter {
             );
           }),
       GoRoute(
+          name: 'add_participants',
+          path: AppRouterPaths.add_participants,
+          builder: (BuildContext context, GoRouterState state) {
+            final stateParam = state.extra as List<Object>;
+            final String id = stateParam[0] as String;
+            final List<String> participants = stateParam[1] as List<String>;
+            return AddParticipantsScreen(
+              id: id,
+              participants: participants,
+            );
+          }),
+      GoRoute(
           name: 'sign_up',
           path: AppRouterPaths.sign_up,
           builder: (BuildContext context, GoRouterState state) {
@@ -48,7 +62,8 @@ class AppRouter {
           name: 'chat',
           path: AppRouterPaths.chat,
           builder: (BuildContext context, GoRouterState state) {
-            return const ChatScreen();
+            final String id = state.extra as String;
+            return ChatScreen(id: id);
           }),
     ],
   );

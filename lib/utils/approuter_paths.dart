@@ -4,4 +4,5 @@ class AppRouterPaths {
   static const add_campaign = '/add_campaign';
   static const sign_up = '/sign_up';
   static const chat = '/chat';
+  static const add_participants = '/add_participants';
 }

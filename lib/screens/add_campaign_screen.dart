@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dnd_chat_app/blocs/form_bloc/add_campaign_form_bloc_bloc.dart';
+import 'package:dnd_chat_app/widgets/app_AppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +25,7 @@ class AddCampaignScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddCampaignFormBloc(context.read<CampaignBloc>()),
+      create: (context) => AddCampaignFormBloc(),
       child: Builder(builder: (context) {
         final addCampaignFormBloc = context.read<AddCampaignFormBloc>();
         if (campaignBeforeEdit != null) {
@@ -41,14 +42,7 @@ class AddCampaignScreen extends StatelessWidget {
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            title: Center(
-              child: Text(
-                "DnD Chat App",
-                style: GoogleFonts.outfit(fontSize: 30),
-              ),
-            ),
-          ),
+          appBar: App_AppBar(),
           body: FormBlocListener<AddCampaignFormBloc, String, String>(
             onSubmitting: (context, state) {
               LoadingDialog.show(context);
