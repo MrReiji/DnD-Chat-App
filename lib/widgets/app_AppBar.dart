@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class App_AppBar extends AppBar {
+class AppAppBar extends AppBar {
   final List<Widget>? actions;
 
-  App_AppBar({Key? key, this.actions})
+  AppAppBar({Key? key, this.actions})
       : super(
             key: key,
             title: Center(
