@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -46,30 +47,29 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAI8WcGWLRPGeba7QOR0dDy_N8ngwzfCHg',
-    appId: '1:996912599316:web:670d7eaff5fb0ad83e3201',
-    messagingSenderId: '996912599316',
-    projectId: 'dnd-chat-app-ffaa6',
-    authDomain: 'dnd-chat-app-ffaa6.firebaseapp.com',
-    storageBucket: 'dnd-chat-app-ffaa6.appspot.com',
+  static FirebaseOptions web = FirebaseOptions(
+    apiKey: dotenv.get('FIREBASE_WEB_apiKey'),
+    appId: dotenv.get('FIREBASE_WEB_appId'),
+    messagingSenderId: dotenv.get('FIREBASE_WEB_messagingSenderId'),
+    projectId: dotenv.get('FIREBASE_WEB_projectId'),
+    authDomain: dotenv.get('FIREBASE_WEB_authDomain'),
+    storageBucket: dotenv.get('FIREBASE_WEB_storageBucket'),
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDKk3nSHsJjGA1Wb4bmXlbnlQwanPafBoI',
-    appId: '1:996912599316:android:4c73b6625616f04f3e3201',
-    messagingSenderId: '996912599316',
-    projectId: 'dnd-chat-app-ffaa6',
-    storageBucket: 'dnd-chat-app-ffaa6.appspot.com',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.get('FIREBASE_ANDROID_apiKey'),
+    appId: dotenv.get('FIREBASE_ANDROID_appId'),
+    messagingSenderId: dotenv.get('FIREBASE_ANDROID_messagingSenderId'),
+    projectId: dotenv.get('FIREBASE_ANDROID_projectId'),
+    storageBucket: dotenv.get('FIREBASE_ANDROID_storageBucket'),
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCmwbER7mPXFRv5m9pGaCUYgK5m3pKl8BA',
-    appId: '1:996912599316:ios:651255e0026e56c43e3201',
-    messagingSenderId: '996912599316',
-    projectId: 'dnd-chat-app-ffaa6',
-    storageBucket: 'dnd-chat-app-ffaa6.appspot.com',
-    iosClientId: '996912599316-q69897ommm0ogs0k778js7rbk8dlumgs.apps.googleusercontent.com',
-    iosBundleId: 'com.example.dndChatApp',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.get('FIREBASE_IOS_apiKey'),
+    appId: dotenv.get('FIREBASE_IOS_appId'),
+    messagingSenderId: dotenv.get('FIREBASE_IOS_messagingSenderId'),
+    projectId: dotenv.get('FIREBASE_IOS_projectId'),
+    storageBucket: dotenv.get('FIREBASE_IOS_storageBucket'),
+    iosBundleId: dotenv.get('FIREBASE_IOS_iosBundleId'),
   );
 }
