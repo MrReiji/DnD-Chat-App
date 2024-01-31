@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
-import '../../blocs/form_bloc/chat_form_bloc.dart';
-import '../loading_dialog.dart';
+import 'package:dnd_chat_app/blocs/form_bloc/chat_form_bloc.dart';
+import 'package:dnd_chat_app/widgets/loading_dialog.dart';
 
 class NewMessage extends StatelessWidget {
   const NewMessage({required this.id, Key? key}) : super(key: key);

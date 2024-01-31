@@ -1,10 +1,10 @@
-import 'package:dnd_chat_app/blocs/form_bloc/login_form_bloc.dart';
-import 'package:dnd_chat_app/utils/approuter_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../widgets/loading_dialog.dart';
+import 'package:dnd_chat_app/blocs/form_bloc/login_form_bloc.dart';
+import 'package:dnd_chat_app/utils/approuter_paths.dart';
+import 'package:dnd_chat_app/widgets/loading_dialog.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);

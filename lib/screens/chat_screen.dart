@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/app_AppBar.dart';
-import '../widgets/chat/chat_messages.dart';
-import '../widgets/chat/new_messages.dart';
+import 'package:dnd_chat_app/widgets/app_AppBar.dart';
+import 'package:dnd_chat_app/widgets/chat/chat_messages.dart';
+import 'package:dnd_chat_app/widgets/chat/new_messages.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({required this.id, super.key});
@@ -13,7 +12,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: App_AppBar(),
+      appBar: AppAppBar(),
       body: Column(
         children: [
           Expanded(

@@ -1,14 +1,11 @@
 import 'dart:io';
 
-import 'package:dnd_chat_app/blocs/campaign/campaign_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../models/campaign.dart';
-import '../cubits/image_picker/image_picker_cubit.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 //final _firebase = FirebaseAuth.instance;

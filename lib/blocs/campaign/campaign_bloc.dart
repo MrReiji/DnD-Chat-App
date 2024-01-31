@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../models/campaign.dart';
+import 'package:dnd_chat_app/models/campaign.dart';
 
 part 'campaign_event.dart';
 part 'campaign_state.dart';

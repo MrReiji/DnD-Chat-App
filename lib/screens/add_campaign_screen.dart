@@ -1,20 +1,14 @@
-import 'dart:io';
-
-import 'package:dnd_chat_app/blocs/form_bloc/add_campaign_form_bloc_bloc.dart';
-import 'package:dnd_chat_app/widgets/app_AppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:dnd_chat_app/blocs/campaign/campaign_bloc.dart';
-import 'package:dnd_chat_app/models/campaign.dart';
-import 'package:dnd_chat_app/utils/faker.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../blocs/cubits/image_picker/image_picker_cubit.dart';
-import '../models/image_picker.dart';
-import '../utils/approuter_paths.dart';
-import '../widgets/loading_dialog.dart';
+import 'package:dnd_chat_app/blocs/cubits/image_picker/image_picker_cubit.dart';
+import 'package:dnd_chat_app/blocs/form_bloc/add_campaign_form_bloc_bloc.dart';
+import 'package:dnd_chat_app/models/campaign.dart';
+import 'package:dnd_chat_app/models/image_picker.dart';
+import 'package:dnd_chat_app/utils/approuter_paths.dart';
+import 'package:dnd_chat_app/widgets/app_AppBar.dart';
+import 'package:dnd_chat_app/widgets/loading_dialog.dart';
 
 class AddCampaignScreen extends StatelessWidget {
   const AddCampaignScreen({this.campaignBeforeEdit, Key? key})
@@ -42,7 +36,7 @@ class AddCampaignScreen extends StatelessWidget {
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: App_AppBar(),
+          appBar: AppAppBar(),
           body: FormBlocListener<AddCampaignFormBloc, String, String>(
             onSubmitting: (context, state) {
               LoadingDialog.show(context);

@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../models/campaign.dart';
-import '../../widgets/loading_dialog.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class AddParticipantsFormBloc extends FormBloc<String, String> {
   final username = TextFieldBloc(

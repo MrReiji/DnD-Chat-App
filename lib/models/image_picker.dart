@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../blocs/cubits/image_picker/image_picker_cubit.dart';
+import 'package:dnd_chat_app/blocs/cubits/image_picker/image_picker_cubit.dart';
 
 class ImagePickerWidget extends StatelessWidget {
   const ImagePickerWidget({

@@ -1,9 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:dnd_chat_app/blocs/campaign/campaign_bloc.dart';
 import 'package:dnd_chat_app/utils/router.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'blocs/cubits/image_picker/image_picker_cubit.dart';
 import 'firebase_options.dart';
 
